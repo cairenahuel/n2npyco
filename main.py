@@ -33,9 +33,16 @@ class gui():
                 
                 
                 def insertInput():
-                        self.treeviewInput.insert("","end",text="test")
+                        files=tkfd.askopenfiles()
+                        for file in files:
+                                add=True
+                                for child in self.treeviewInput.get_children():
+                                        text=self.treeviewInput.item(child,'text')
+                                        if text==file.name:
+                                                add=False    
                                 
-                
+                                if add:
+                                        self.treeviewInput.insert("","end",text=file.name)
                 
                 
                 
