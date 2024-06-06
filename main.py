@@ -28,6 +28,17 @@ class gui():
                 ##---> third layer
                 self.thirdLayer=Frame(self.root, bg="")
                 
+                
+                ##Functions 
+                
+                
+                def insertInput():
+                        self.treeviewInput.insert("","end",text="test")
+                                
+                
+                
+                
+                
                 ##----------------------##
                 ##      First layer     ##
                 ##----------------------##
@@ -46,7 +57,7 @@ class gui():
                 ##--------------------------------------##
                 self.treeviewInput=ttk.Treeview(self.tvInputFrame)
                 ##--------->  Treeview controll buttons
-                self.inputAddButton=Button(self.tvInputControllersFrame, text="Add files")     # command change here
+                self.inputAddButton=Button(self.tvInputControllersFrame, text="Add files", command=insertInput)     # command change here
                 self.inputAddButton.pack(fill="both", side="top",padx=10, pady=10, expand=True)
                 self.inputDeleteButton=Button(self.tvInputControllersFrame, text="Delete Selected") # command change here
                 self.inputDeleteButton.pack(fill="both", side="top",padx=10, pady=10, expand=True)
@@ -98,8 +109,7 @@ class gui():
                 
                 
                 
-                                
                 self.root.mainloop()
 
 
-gui()
+g=gui()
