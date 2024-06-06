@@ -43,6 +43,12 @@ class gui():
                                 
                                 if add:
                                         self.treeviewInput.insert("","end",text=file.name)
+                def insertOutput():
+                        directory=tkfd.askdirectory()
+                        #
+                        #       Solo funciona de a una carpeta por ves, habria que ver tkfilebrowser para una alternativa simple
+                        #
+                        self.treeviewOutput.insert("",END,text=directory)
                 def deleteSelected(tree):
                         selectedItems= tree.selection()
                         for selection in selectedItems:
@@ -90,11 +96,13 @@ class gui():
                 ##--------------------------------------##
                 self.treeviewOutput=ttk.Treeview(self.tvOutputFrame)
                 ##--------->  Treeview controll buttons
-                self.outputAddButton=Button(self.tvOutputControllersFrame, text="Add directores")     # command change here
+                self.outputAddButton=Button(self.tvOutputControllersFrame, text="Add directores", command=insertOutput)     # command change here
                 self.outputAddButton.pack(fill="both", side="top",padx=10, pady=10, expand=True)
                 self.outputDeleteButton=Button(self.tvOutputControllersFrame, text="Delete Selected") # command change here
+                self.outputDeleteButton['command']=lambda selfer=self.treeviewOutput:deleteSelected(selfer)
                 self.outputDeleteButton.pack(fill="both", side="top",padx=10, pady=10, expand=True)
                 self.outputDeleteAllButton=Button(self.tvOutputControllersFrame, text="Delete All")     # command change here
+                self.outputDeleteAllButton['command']=lambda selfer=self.treeviewOutput:deleteAll(selfer)
                 self.outputDeleteAllButton.pack(fill="both", side="top",padx=10, pady=10, expand=True)
                 self.tvInputFrame.pack()
                 
