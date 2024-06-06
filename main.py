@@ -64,15 +64,15 @@ class gui():
                 ##--------------------------------------##
                 self.treeviewOutput=ttk.Treeview(self.tvOutputFrame)
                 ##--------->  Treeview controll buttons
-                self.outputAddButton=Button(self.tvOutputControllersFrame, text="Add directores", command=insertOutput)     # command change here
+                self.outputAddButton=Button(self.tvOutputControllersFrame, text="Add directores", command=self.insertOutput)     # command change here
                 self.outputAddButton.pack(fill="both", side="top",padx=10, pady=10, expand=True)
 
                 self.outputDeleteButton=Button(self.tvOutputControllersFrame, text="Delete Selected") # command change here
-                self.outputDeleteButton['command']=lambda selfer=self.treeviewOutput:deleteSelected(selfer)
+                self.outputDeleteButton['command']=self.deleteSelected
                 self.outputDeleteButton.pack(fill="both", side="top",padx=10, pady=10, expand=True)
 
                 self.outputDeleteAllButton=Button(self.tvOutputControllersFrame, text="Delete All")     # command change here
-                self.outputDeleteAllButton['command']=lambda selfer=self.treeviewOutput:deleteAll(selfer)
+                self.outputDeleteAllButton['command']=self.deleteAll
                 self.outputDeleteAllButton.pack(fill="both", side="top",padx=10, pady=10, expand=True)
                 
                 self.tvInputFrame.pack()
