@@ -64,13 +64,15 @@ class gui():
                 ##--------------------------------------##
                 self.treeviewOutput=ttk.Treeview(self.tvOutputFrame)
                 ##--------->  Treeview controll buttons
-                self.outputAddButton=Button(self.tvOutputControllersFrame, text="Add directores")     # command change here
+                self.outputAddButton=Button(self.tvOutputControllersFrame, text="Add directores", command=insertOutput)     # command change here
                 self.outputAddButton.pack(fill="both", side="top",padx=10, pady=10, expand=True)
 
                 self.outputDeleteButton=Button(self.tvOutputControllersFrame, text="Delete Selected") # command change here
+                self.outputDeleteButton['command']=lambda selfer=self.treeviewOutput:deleteSelected(selfer)
                 self.outputDeleteButton.pack(fill="both", side="top",padx=10, pady=10, expand=True)
 
                 self.outputDeleteAllButton=Button(self.tvOutputControllersFrame, text="Delete All")     # command change here
+                self.outputDeleteAllButton['command']=lambda selfer=self.treeviewOutput:deleteAll(selfer)
                 self.outputDeleteAllButton.pack(fill="both", side="top",padx=10, pady=10, expand=True)
                 
                 self.tvInputFrame.pack()
@@ -114,6 +116,18 @@ class gui():
                         
                         if add:
                                 self.treeviewInput.insert("","end",text=file.name)
+        
+        def insertOutput(self):
+                directory=tkfd.askdirectory()
+                add=True
+                for child in self.treeviewOutput.get_children():
+                        text=self.treeviewOutput.item(child,'text')
+                        if text==directory:
+                                add=False    
+                        
+                if add:
+                        self.treeviewOutput.insert("",END,text=directory)
+
         def deleteSelected(self):
                 tree = self.treeviewInput
                 selectedItems= tree.selection()
