@@ -43,11 +43,12 @@ class gui():
                 ##              Input treeview          ##
                 ##--------------------------------------##
                 self.treeviewInput=ttk.Treeview(self.tvInputFrame)
+
                 ##--------->  Treeview controll buttons
                 self.inputAddButton=Button(self.tvInputControllersFrame, text="Add files", command=self.insertInput) # command change here
                 self.inputAddButton.pack(fill="both", side="top",padx=10, pady=10, expand=True)
-                self.inputDeleteButton=Button(self.tvInputControllersFrame, text="Delete Selected") # command change here
                 
+                self.inputDeleteButton=Button(self.tvInputControllersFrame, text="Delete Selected") # command change here
                 self.inputDeleteButton['command']=self.deleteSelected
                 self.inputDeleteButton.pack(fill="both", side="top",padx=10, pady=10, expand=True)
 
@@ -65,10 +66,13 @@ class gui():
                 ##--------->  Treeview controll buttons
                 self.outputAddButton=Button(self.tvOutputControllersFrame, text="Add directores")     # command change here
                 self.outputAddButton.pack(fill="both", side="top",padx=10, pady=10, expand=True)
+
                 self.outputDeleteButton=Button(self.tvOutputControllersFrame, text="Delete Selected") # command change here
                 self.outputDeleteButton.pack(fill="both", side="top",padx=10, pady=10, expand=True)
+
                 self.outputDeleteAllButton=Button(self.tvOutputControllersFrame, text="Delete All")     # command change here
                 self.outputDeleteAllButton.pack(fill="both", side="top",padx=10, pady=10, expand=True)
+                
                 self.tvInputFrame.pack()
                 
                 self.treeviewOutput.pack(fill=X,padx=10, pady=10)
