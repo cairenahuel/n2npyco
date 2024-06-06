@@ -45,10 +45,14 @@ class gui():
                                         self.treeviewInput.insert("","end",text=file.name)
                 def insertOutput():
                         directory=tkfd.askdirectory()
-                        #
-                        #       Solo funciona de a una carpeta por ves, habria que ver tkfilebrowser para una alternativa simple
-                        #
-                        self.treeviewOutput.insert("",END,text=directory)
+                        add=True
+                        for child in self.treeviewOutput.get_children():
+                                text=self.treeviewOutput.item(child,'text')
+                                if text==directory:
+                                        add=False    
+                                
+                        if add:
+                                self.treeviewOutput.insert("",END,text=directory)
                 def deleteSelected(tree):
                         selectedItems= tree.selection()
                         for selection in selectedItems:
