@@ -43,7 +43,15 @@ class gui():
                                 
                                 if add:
                                         self.treeviewInput.insert("","end",text=file.name)
+                def deleteSelected(tree):
+                        selectedItems= tree.selection()
+                        for selection in selectedItems:
+                                tree.delete(selection)                
                 
+                def deleteAll(tree):
+                        items= tree.get_children()
+                        for item in items:
+                                tree.delete(item)                
                 
                 
                 ##----------------------##
@@ -67,8 +75,10 @@ class gui():
                 self.inputAddButton=Button(self.tvInputControllersFrame, text="Add files", command=insertInput)     # command change here
                 self.inputAddButton.pack(fill="both", side="top",padx=10, pady=10, expand=True)
                 self.inputDeleteButton=Button(self.tvInputControllersFrame, text="Delete Selected") # command change here
+                self.inputDeleteButton['command']=lambda selfer=self.treeviewInput:deleteSelected(selfer)
                 self.inputDeleteButton.pack(fill="both", side="top",padx=10, pady=10, expand=True)
                 self.inputDeleteAllButton=Button(self.tvInputControllersFrame, text="Delete All")     # command change here
+                self.inputDeleteAllButton['command']=lambda selfer=self.treeviewInput:deleteAll(selfer)
                 self.inputDeleteAllButton.pack(fill="both", side="top",padx=10, pady=10, expand=True)
 
                 self.treeviewInput.pack(fill=X,padx=10, pady=10)
