@@ -49,11 +49,11 @@ class gui():
                 self.inputAddButton.pack(fill="both", side="top",padx=10, pady=10, expand=True)
                 
                 self.inputDeleteButton=Button(self.tvInputControllersFrame, text="Delete Selected") # command change here
-                self.inputDeleteButton['command']=self.deleteSelected
+                self.inputDeleteButton['command']=self.deleteSelectedInput
                 self.inputDeleteButton.pack(fill="both", side="top",padx=10, pady=10, expand=True)
 
                 self.inputDeleteAllButton=Button(self.tvInputControllersFrame, text="Delete All") # command change here
-                self.inputDeleteAllButton['command']=self.deleteAll
+                self.inputDeleteAllButton['command']=self.deleteAllInput
                 self.inputDeleteAllButton.pack(fill="both", side="top",padx=10, pady=10, expand=True)
 
                 self.treeviewInput.pack(fill=X,padx=10, pady=10)
@@ -68,11 +68,11 @@ class gui():
                 self.outputAddButton.pack(fill="both", side="top",padx=10, pady=10, expand=True)
 
                 self.outputDeleteButton=Button(self.tvOutputControllersFrame, text="Delete Selected") # command change here
-                self.outputDeleteButton['command']=self.deleteSelected
+                self.outputDeleteButton['command']=self.deleteSelectedOutput
                 self.outputDeleteButton.pack(fill="both", side="top",padx=10, pady=10, expand=True)
 
                 self.outputDeleteAllButton=Button(self.tvOutputControllersFrame, text="Delete All")     # command change here
-                self.outputDeleteAllButton['command']=self.deleteAll
+                self.outputDeleteAllButton['command']=self.deleteAllOutput
                 self.outputDeleteAllButton.pack(fill="both", side="top",padx=10, pady=10, expand=True)
                 
                 self.tvInputFrame.pack()
@@ -127,15 +127,27 @@ class gui():
                         
                 if add:
                         self.treeviewOutput.insert("",END,text=directory)
-
-        def deleteSelected(self):
+                        
+        def deleteSelectedInput(self):
                 tree = self.treeviewInput
+                selectedItems= tree.selection()
+                for selection in selectedItems:
+                        tree.delete(selection)          
+        
+        def deleteSelectedOutput(self):
+                tree = self.treeviewOutput
                 selectedItems= tree.selection()
                 for selection in selectedItems:
                         tree.delete(selection)                
         
-        def deleteAll(self):
-                tree = self.treeviewInput
+        def deleteAllInput(self):
+                tree= self.treeviewInput
+                items= tree.get_children()
+                for item in items:
+                        tree.delete(item)            
+        
+        def deleteAllOutput(self):
+                tree= self.treeviewOutput
                 items= tree.get_children()
                 for item in items:
                         tree.delete(item)                
