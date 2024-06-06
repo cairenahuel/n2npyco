@@ -11,7 +11,6 @@ class gui():
                 self.root.geometry("800x600")
                 self.root.resizable(width=False, height=False)
                 
-                
                 ## Frames
                 ##---> first layer
                 self.firstlayer=Frame(self.root)
@@ -28,33 +27,6 @@ class gui():
                 ##---> third layer
                 self.thirdLayer=Frame(self.root, bg="")
                 
-                
-                ##Functions 
-                
-                
-                def insertInput():
-                        files=tkfd.askopenfiles()
-                        for file in files:
-                                add=True
-                                for child in self.treeviewInput.get_children():
-                                        text=self.treeviewInput.item(child,'text')
-                                        if text==file.name:
-                                                add=False    
-                                
-                                if add:
-                                        self.treeviewInput.insert("","end",text=file.name)
-                def deleteSelected(tree):
-                        selectedItems= tree.selection()
-                        for selection in selectedItems:
-                                tree.delete(selection)                
-                
-                def deleteAll(tree):
-                        items= tree.get_children()
-                        for item in items:
-                                tree.delete(item)                
-                
-                
-                ##----------------------##
                 ##      First layer     ##
                 ##----------------------##
                 
@@ -72,18 +44,19 @@ class gui():
                 ##--------------------------------------##
                 self.treeviewInput=ttk.Treeview(self.tvInputFrame)
                 ##--------->  Treeview controll buttons
-                self.inputAddButton=Button(self.tvInputControllersFrame, text="Add files", command=insertInput)     # command change here
+                self.inputAddButton=Button(self.tvInputControllersFrame, text="Add files", command=self.insertInput) # command change here
                 self.inputAddButton.pack(fill="both", side="top",padx=10, pady=10, expand=True)
                 self.inputDeleteButton=Button(self.tvInputControllersFrame, text="Delete Selected") # command change here
-                self.inputDeleteButton['command']=lambda selfer=self.treeviewInput:deleteSelected(selfer)
+                
+                self.inputDeleteButton['command']=self.deleteSelected
                 self.inputDeleteButton.pack(fill="both", side="top",padx=10, pady=10, expand=True)
-                self.inputDeleteAllButton=Button(self.tvInputControllersFrame, text="Delete All")     # command change here
-                self.inputDeleteAllButton['command']=lambda selfer=self.treeviewInput:deleteAll(selfer)
+
+                self.inputDeleteAllButton=Button(self.tvInputControllersFrame, text="Delete All") # command change here
+                self.inputDeleteAllButton['command']=self.deleteAll
                 self.inputDeleteAllButton.pack(fill="both", side="top",padx=10, pady=10, expand=True)
 
                 self.treeviewInput.pack(fill=X,padx=10, pady=10)
                 self.treeviewInput.configure(height=8)
-                
                 
                 ##--------------------------------------##
                 ##             Output treeview          ##
@@ -108,7 +81,6 @@ class gui():
                 #Initilization 
                 self.secondlayer.pack(side=TOP, fill=BOTH, expand=True)
                 
-                
                 ##------------------------------##
                 ##      Third layer             ##
                 ##------------------------------##
@@ -124,9 +96,29 @@ class gui():
                 self.executeButton = Button(self.thirdLayer, text="Execute task") #----> Add command here ((command=lorem))
                 self.executeButton.pack(side=RIGHT,fill=X, expand=True, padx=50, pady=10)
                 
-                
-                
                 self.root.mainloop()
 
 
+        def insertInput(self):
+                files=tkfd.askopenfiles()
+                for file in files:
+                        add=True
+                        for child in self.treeviewInput.get_children():
+                                text=self.treeviewInput.item(child,'text')
+                                if text==file.name:
+                                        add=False    
+                        
+                        if add:
+                                self.treeviewInput.insert("","end",text=file.name)
+        def deleteSelected(self):
+                tree = self.treeviewInput
+                selectedItems= tree.selection()
+                for selection in selectedItems:
+                        tree.delete(selection)                
+        
+        def deleteAll(self):
+                tree = self.treeviewInput
+                items= tree.get_children()
+                for item in items:
+                        tree.delete(item)                
 g=gui()
