@@ -3,10 +3,12 @@ import tkinter as tk
 from tkinter import *
 from tkinter import ttk
 
+backgroundColor = "#f0f0f0"
 class gui():
         def __init__(self):
                 ## Root settings
                 self.root=Tk()
+                self.root.config(background=backgroundColor)
                 self.root.title("n2npyco")
                 self.root.geometry("800x600")
                 self.root.resizable(width=False, height=False)
@@ -22,10 +24,10 @@ class gui():
                 self.tvOutputControllersFrame=Frame(self.tvOutputFrame, background="")
                 
                 ##---> second layer
-                self.secondlayer=Frame(self.root,bg="")
+                self.secondlayer=Frame(self.root,bg=backgroundColor)
                 
                 ##---> third layer
-                self.thirdLayer=Frame(self.root, bg="")
+                self.thirdLayer=Frame(self.root, bg=backgroundColor)
                 
                 ##      First layer     ##
                 ##----------------------##
@@ -118,8 +120,12 @@ class gui():
                                 self.treeviewInput.insert("","end",text=file.name)
         
         def insertOutput(self):
+                # Solo funciona de a una carpeta por ves, habria que ver tkfilebrowser para una alternativa simple
                 directory=tkfd.askdirectory()
                 add=True
+
+                # if dir is already added, doesn't do anything
+                # TODO: what happens when we add multiple directories
                 for child in self.treeviewOutput.get_children():
                         text=self.treeviewOutput.item(child,'text')
                         if text==directory:
