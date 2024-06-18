@@ -1,12 +1,15 @@
+import os
 import tkinter.filedialog as tkfd
 import tkinter as tk
 from tkinter import *
 from tkinter import ttk
 import fileUtils
+import tkfilebrowser
 
 backgroundColor = "#f0f0f0"
 class gui():
         def __init__(self):
+                self.homePath = os.path.expanduser("~")
                 ## Root settings
                 self.root=Tk()
                 self.root.config(background=backgroundColor)
@@ -124,7 +127,7 @@ class gui():
 
 
         def insertInput(self):
-                files=tkfd.askopenfiles()
+                files=tkfilebrowser.askopenfilenames(initialdir=self.homePath)
                 for file in files:
                         add=True
                         for child in self.treeviewInput.get_children():
@@ -137,7 +140,7 @@ class gui():
         
         def insertOutput(self):
                 # Solo funciona de a una carpeta por ves, habria que ver tkfilebrowser para una alternativa simple
-                directory=tkfd.askdirectory()
+                directory=tkfilebrowser.askopendirnames(initialdir=self.homePath)
                 add=True
 
                 # if dir is already added, doesn't do anything
