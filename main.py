@@ -29,6 +29,9 @@ class gui():
                 
                 ##---> third layer
                 self.thirdLayer=Frame(self.root, bg=backgroundColor)
+
+                ##---> fourth layer
+                self.fourthLayer=Frame(self.root, bg=backgroundColor)
                 
                 ##      First layer     ##
                 ##----------------------##
@@ -96,13 +99,24 @@ class gui():
                 
                 # Initialization
                 self.thirdLayer.pack(fill=X, expand=True)
+                self.statusMessage = StringVar()
+                self.statusMessage.set("Status: waiting for task tu run")
+                self.statusLabel = Label(self.thirdLayer, textvariable=self.statusMessage, font=("Courier", 12))
+                self.statusLabel.pack()
+                
+                ##------------------------------##
+                ##      Fourth layer            ##
+                ##------------------------------##
+                
+                # Initialization
+                self.fourthLayer.pack(fill=X, expand=True)
                 
                 # Quit button
-                self.quitButton = Button(self.thirdLayer, text="Exit", command=self.root.quit)
+                self.quitButton = Button(self.fourthLayer, text="Exit", command=self.root.quit)
                 self.quitButton.pack(fill=X, side=LEFT, expand=True, padx=50, pady=10)
                 
                 # Execute button
-                self.executeButton = Button(self.thirdLayer, text="Execute task") #----> Add command here ((command=lorem))
+                self.executeButton = Button(self.fourthLayer, text="Execute task") #----> Add command here ((command=lorem))
                 self.executeButton['command']=self.executeTask
                 self.executeButton.pack(side=RIGHT,fill=X, expand=True, padx=50, pady=10)
                 
@@ -161,6 +175,7 @@ class gui():
                         tree.delete(item)                
 
         def executeTask(self):
+                self.statusMessage.set("Status: task running")
                 inputTree = self.treeviewInput
                 inputItems = inputTree.get_children()
                 copyFrom = []
@@ -175,6 +190,13 @@ class gui():
                         var = outputTree.item(item)["text"]
                         copyTo.append(var)
                 
-                fileUtils.copy(copyFrom, copyTo)
+                try:
+                        fileUtils.copyAndReplace(copyFrom,copyTo)
+                except Exception as e:
+                        self.statusMessage.set("Status: error, call the developer")
+                        print(e)
+                        return
+
+                self.statusMessage.set("Status: task complete")
 
 g=gui()
