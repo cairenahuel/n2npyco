@@ -2,6 +2,7 @@ import tkinter.filedialog as tkfd
 import tkinter as tk
 from tkinter import *
 from tkinter import ttk
+import fileUtils
 
 backgroundColor = "#f0f0f0"
 class gui():
@@ -102,6 +103,7 @@ class gui():
                 
                 # Execute button
                 self.executeButton = Button(self.thirdLayer, text="Execute task") #----> Add command here ((command=lorem))
+                self.executeButton['command']=self.executeTask
                 self.executeButton.pack(side=RIGHT,fill=X, expand=True, padx=50, pady=10)
                 
                 self.root.mainloop()
@@ -157,4 +159,22 @@ class gui():
                 items= tree.get_children()
                 for item in items:
                         tree.delete(item)                
+
+        def executeTask(self):
+                inputTree = self.treeviewInput
+                inputItems = inputTree.get_children()
+                copyFrom = []
+                for item in inputItems:
+                        var = inputTree.item(item)["text"]
+                        copyFrom.append(var)
+                
+                outputTree = self.treeviewOutput 
+                outputItems = outputTree.get_children()
+                copyTo = []
+                for item in outputItems:
+                        var = outputTree.item(item)["text"]
+                        copyTo.append(var)
+                
+                fileUtils.copy(copyFrom, copyTo)
+
 g=gui()
