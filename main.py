@@ -128,30 +128,31 @@ class gui():
 
         def insertInput(self):
                 files=tkfilebrowser.askopenfilenames(initialdir=self.homePath)
+                print(files)
                 for file in files:
                         add=True
                         for child in self.treeviewInput.get_children():
                                 text=self.treeviewInput.item(child,'text')
-                                if text==file.name:
+                                if text==file:
                                         add=False    
                         
                         if add:
-                                self.treeviewInput.insert("","end",text=file.name)
+                                self.treeviewInput.insert("","end",text=file)
         
         def insertOutput(self):
-                # Solo funciona de a una carpeta por ves, habria que ver tkfilebrowser para una alternativa simple
-                directory=tkfilebrowser.askopendirnames(initialdir=self.homePath)
+                dirs=tkfilebrowser.askopendirnames(initialdir=self.homePath)
+                # print(files)
                 add=True
 
-                # if dir is already added, doesn't do anything
-                # TODO: what happens when we add multiple directories
-                for child in self.treeviewOutput.get_children():
-                        text=self.treeviewOutput.item(child,'text')
-                        if text==directory:
-                                add=False    
-                        
-                if add:
-                        self.treeviewOutput.insert("",END,text=directory)
+                for dir in dirs:
+                        add = True
+                        for child in self.treeviewOutput.get_children():
+                                text=self.treeviewOutput.item(child,'text')
+                                if text==dir:
+                                        add=False    
+                                
+                        if add:
+                                self.treeviewOutput.insert("",END,text=dir)
                         
         def deleteSelectedInput(self):
                 tree = self.treeviewInput
