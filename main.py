@@ -103,7 +103,7 @@ class gui():
                 # Initialization
                 self.thirdLayer.pack(fill=X, expand=True)
                 self.statusMessage = StringVar()
-                self.statusMessage.set("Status: waiting for task tu run")
+                self.statusMessage.set("Status: waiting for task to run")
                 self.statusLabel = Label(self.thirdLayer, textvariable=self.statusMessage, font=("Courier", 12))
                 self.statusLabel.pack()
                 
