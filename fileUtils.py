@@ -18,7 +18,7 @@ def existsFiles(copyFrom: List[str])->bool:
 
 def existsDirs(copyTo: List[str])->bool:
     for dir in copyTo:
-        if (not os.path.isdir(file)):
+        if (not os.path.isdir(dir)):
             return False
     return True
 
