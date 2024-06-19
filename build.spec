@@ -14,7 +14,9 @@ a = Analysis(
     noarchive=False,
     optimize=0,
 )
-pyz = PYZ(a.pure)
+pyz = PYZ(a.pure)            
+a.datas += Tree("C:\\Users\\nahue\\Coding\\n2npyco\\env\\Lib\\site-packages\\tkfilebrowser", "tkfilebrowser")
+
 
 exe = EXE(
     pyz,
@@ -29,7 +31,7 @@ exe = EXE(
     upx=True,
     upx_exclude=[],
     runtime_tmpdir=None,
-    console=True,
+    console=False,
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
